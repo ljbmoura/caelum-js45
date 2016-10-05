@@ -1,23 +1,32 @@
 <div class=page-header text-center>
-	<h1>titulo da foto aqui</h1>
+	<h1>{{foto.titulo}}</h1>
 </div>
 
-<form name="formulario" class="row">
+<form name="formulario" class="row" 
+	ng-submit="submeter()" novalidate>
 
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>Título</label>
-			<input name="titulo" class="form-control">
+			<input name="titulo" class="form-control" 
+				ng-model="foto.titulo" 
+				required ng-maxlength=10
+				placeholder="qual o título">
+			<!--&& formulario.$submitted-->
+			<span ng-show = "formulario.titulo.$error.required" 
+				class="form-control alert-danger">título obrigatório</span>
+			<span ng-show = "formulario.titulo.$error.maxlength " 
+				class="form-control alert-danger">título deve ter no máximo 10 caracteres</span>
 		</div>
 
 		<div class="form-group">
 			<label>URL</label>
-			<input name="url" class="form-control">
+			<input name="url" class="form-control" ng-model="foto.url"> 
 		</div>
 
 		<div class="form-group">
 			<label>Descriçao</label>
-			<input name="descricao" class="form-control">
+			<input name="descricao" class="form-control" ng-model="foto.descricao">
 		</div>
 
 		<button type="submit" class="btn btn-primary">Salvar</button>
@@ -27,7 +36,7 @@
 	</div>
 
 	<div class="col-md-6">
-		<minha-foto></minha-foto>
+		<minha-foto url="{{foto.url}}" titulo="{{foto.titulo}}"></minha-foto>
 	</div>
 
 </form>
