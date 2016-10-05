@@ -8,14 +8,25 @@
 <div class="row">
     <div class="col-md-12" style="margin: 0 0 20px 0;">
         <form>
+        <div class="input-group">
+
+        	<span class="input-group-btn">
+        		<a href="/fotos/new" class="btn btn-primary" type="button">Nova foto</a> 
+        	</span>
+
             <input ng-model-options={debounce:500} ng-model="filtro" class="form-control" placeholder="Filtrar pelo título da foto">
+           </div>
         </form>
     </div>
 </div>
 
+<p ng-show="mensagem" class="alert alert-info">{{mensagem}}</p>
+
 <div class="row">
     <meu-painel ng-repeat="foto in fotos | filter: {titulo: filtro}" titulo="{{foto.titulo}}" class="col-md-2 painel-animado">
     	<minha-foto url="{{foto.url}}" titulo="{{foto.titulo}}"> </minha-foto>
+    	<button ng-click="remover(foto)" class="btn btn-danger btn-block" 
+    		style="margin: 5px 0 0 0">Remover</button>
         <!--<img  class="img-responsive center-block" src="{{foto.url}}" alt="{{foto.titulo}}">-->
     </meu-painel>
 </div>

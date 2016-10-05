@@ -5,6 +5,8 @@
 <form name="formulario" class="row" 
 	ng-submit="submeter()" novalidate>
 
+	<p ng-show="mensagem" class="alert alert-info">{{mensagem}}</p>
+	
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>Título</label>
