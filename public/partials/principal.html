@@ -22,9 +22,10 @@
 
 <p ng-show="mensagem" class="alert alert-info">{{mensagem}}</p>
 
-<div class="row">
+<div class="row" style="">
     <meu-painel ng-repeat="foto in fotos | filter: {titulo: filtro}" titulo="{{foto.titulo}}" class="col-md-2 painel-animado">
-    	<minha-foto url="{{foto.url}}" titulo="{{foto.titulo}}"> </minha-foto>
+    	<a href="/fotos/new/{{foto._id}}"><minha-foto url="{{foto.url}}" titulo="{{foto.titulo}}"> </minha-foto></a>
+    	<meu-botao-perigo nome="remover" acao="remover(foto)"></meu-botao-perigo>
     	<button ng-click="remover(foto)" class="btn btn-danger btn-block" 
     		style="margin: 5px 0 0 0">Remover</button>
         <!--<img  class="img-responsive center-block" src="{{foto.url}}" alt="{{foto.titulo}}">-->
