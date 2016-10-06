@@ -1,14 +1,28 @@
 angular.module ("alurapic").controller ("FotoController", 
-	function ($scope, $http, $routeParams, $location) {
+	function ($scope, $http, $routeParams, $location, $resource) {
+
 
 		$scope.foto = {};
 		$scope.mensagem = "";
-		if ($routeParams.id) {
+
+		/*if ($routeParams.id) {
 			$http.get("/v1/fotos/" + $routeParams.id)
 				.success( function (foto) {
 					$scope.foto = foto;
 				})
-		};
+		};*/
+		var recursoFoto = $resource("/v1/fotos/:fotoId");
+		recursoFoto.get (
+			{fotoId: $routeParams.id},
+			function (foto) {
+				$scope.foto = foto;
+				console.log ("get foto via resource");
+			},
+			function (erro) {
+				console.log (erro);
+			}
+		);
+
 
 		$scope.submeter = function () {
 			if ($scope.formulario.$valid) {
