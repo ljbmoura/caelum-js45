@@ -27,5 +27,19 @@ angular.module("alurapic",
 			.otherwise ( {
 				redirectTo: "/fotos"
 			})
+
+
 	})
+
+	.run (function ($rootScope) {
+		$rootScope.$on (
+			"$routeChangeStart",
+			function (event, next, current) {
+				if (next.templateUrl) {
+					//alert(next.titulo);
+					$rootScope.tituloDaPagina = next.titulo;
+				}
+			}
+		)
+	})	
 ;
