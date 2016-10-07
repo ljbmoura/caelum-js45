@@ -33,10 +33,13 @@ angular.module ("alurapic").controller ("FotoController",
 				cadastroDeFotos.cadastra($scope.foto)
 				.then ( function (res) {
 					$scope.mensagem = res.mensagem;
-					$scope.foto = {};
-					if (!res.inclusao) {
+					//$scope.foto = {};
+					/*if (!res.inclusao) {
 						$location.path("/");		
-					}
+					} else {
+						$scope.focado = true;
+					}*/
+					$scope.focado = true;
 				})
 				.catch ( function (erro) {
 					$scope.mensagem = erro.mensagem;

@@ -24,7 +24,7 @@ angular.module("minhasDiretivas", [])
 		}
 
 		ddo.template = 
-			'<img class="img-responsive center-block" src="{{url}}"" alt="{{titulo}}">';
+			'<img class="img-responsive center-block" width="50" height="50" src="{{url}}"" alt="{{titulo}}">';
 
 		return ddo;
 	})
@@ -40,6 +40,30 @@ angular.module("minhasDiretivas", [])
 		ddo.scope = {
 			nome: "@",
 			acao: "&" 
+		}
+
+		return ddo;
+	})
+
+	.directive("meuFoco", function () {
+		var ddo = {};
+
+		ddo.restrict = "A";
+		ddo.scope = {
+			focado: "="
+		}
+		
+		ddo.link = function (scope, element) {
+			// necessariamente deve-se usar focado="focado" na tag  
+			scope.$watch (
+				'focado', 
+				function () {
+					if (scope.focado) {
+						element[0].focus();
+						scope.focado = false;
+					}
+				}
+			)
 		}
 
 		return ddo;
