@@ -49,19 +49,13 @@ angular.module("minhasDiretivas", [])
 		var ddo = {};
 
 		ddo.restrict = "A";
-		ddo.scope = {
-			focado: "="
-		}
 		
 		ddo.link = function (scope, element) {
-			// necessariamente deve-se usar focado="focado" na tag  
-			scope.$watch (
-				'focado', 
+
+			scope.$on (
+				'fotoCadastrada', 
 				function () {
-					if (scope.focado) {
-						element[0].focus();
-						scope.focado = false;
-					}
+					element[0].focus();
 				}
 			)
 		}
