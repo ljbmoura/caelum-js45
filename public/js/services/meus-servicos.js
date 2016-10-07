@@ -15,7 +15,8 @@ angular.module ('meusServicos', ['ngResource'])
 
 	.factory (
 		'cadastroDeFotos',
-		function ($q, recursoFoto) {
+		function ($q, recursoFoto, $rootScope) {
+			var evento = "fotoCadastrada";
 			var servico = {};
 			servico.cadastra = function (foto) {
 				return $q (function (resolve, reject) {
@@ -24,23 +25,25 @@ angular.module ('meusServicos', ['ngResource'])
 							{fotoId: foto._id}, 
 							foto, 
 							function () {
-								resolve ({mensagem: "foto atualizada com sucesso", inclusao: false});
+								$rootScope.$broadcast(evento);
+								resolve ({mensagem: "foto " + foto.titulo + " atualizada com sucesso", inclusao: false});
 							},
 							function(erro) {
 								console.log(erro);
-								reject ({mensagem: "nao foi possivel atualizar foto", inclusao: false});
+								reject ({mensagem: "nao foi possivel atualizar foto " + foto.titulo, inclusao: false});
 							}
 						)
 					} else {
 						recursoFoto.save (
 							foto,
 							function () {
-								resolve ({mensagem: "foto incluida com sucesso", inclusao: true});
+								$rootScope.$broadcast(evento);
+								resolve ({mensagem: "foto " + foto.titulo + " incluida com sucesso", inclusao: true});
 								
 							}, 
 							function (erro) {
 								console.log (erro);
-								reject ({mensagem: "nao foi possivel incluir a foto", inclusao: true});;						
+								reject ({mensagem: "nao foi possivel incluir a foto "+ foto.titulo, inclusao: true});;						
 							}
 						)
 					}
