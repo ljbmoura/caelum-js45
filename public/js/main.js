@@ -1,4 +1,5 @@
-angular.module("alurapic", ["minhasDiretivas", "ngAnimate", "ngRoute", "ngResource"])
+angular.module("alurapic", 
+	["minhasDiretivas", "ngAnimate", "ngRoute", "ngResource", "meusServicos"])
 
 	.config (function ($routeProvider, $locationProvider) {
 		$locationProvider.html5Mode(true);
@@ -6,18 +7,21 @@ angular.module("alurapic", ["minhasDiretivas", "ngAnimate", "ngRoute", "ngResour
 		$routeProvider
 			.when("/fotos", {
 				controller: "FotosController",
-				templateUrl: "partials/principal.html"
+				templateUrl: "partials/principal.html",
+				titulo: 'Listagem'
 
 			})
 
 			.when("/fotos/new", {
 				controller: "FotoController",
-				templateUrl: "partials/foto.html"
+				templateUrl: "partials/foto.html",
+				titulo: 'Inclusao'
 			})
 
 			.when("/fotos/new/:id", {
 				controller: "FotoController",
-				templateUrl: "partials/foto.html"
+				templateUrl: "partials/foto.html",
+				titulo: 'Alteracao'
 			})
 
 			.otherwise ( {

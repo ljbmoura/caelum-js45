@@ -1,5 +1,5 @@
 angular.module ("alurapic").controller ("FotoController", 
-	function ($scope, $routeParams, $location, $resource) {
+	function ($scope, $routeParams, $location, recursoFoto, cadastroDeFotos) {
 
 
 		$scope.foto = {};
@@ -12,13 +12,6 @@ angular.module ("alurapic").controller ("FotoController",
 					$scope.foto = foto;
 				})
 		};*/
-		var recursoFoto = $resource("/v1/fotos/:fotoId",
-			null, // uso opcional querystring
-			{
-				update: {
-					method: "put"
-				}
-			});
 
 		if ($routeParams.id) {
 			recursoFoto.get (
@@ -36,7 +29,20 @@ angular.module ("alurapic").controller ("FotoController",
  
 		$scope.submeter = function () {
 			if ($scope.formulario.$valid) {
-				if (! $routeParams.id) {
+				
+				cadastroDeFotos.cadastra($scope.foto)
+				.then ( function (res) {
+					$scope.mensagem = res.mensagem;
+					$scope.foto = {};
+					if (!res.inclusao) {
+						$location.path("/");		
+					}
+				})
+				.catch ( function (erro) {
+					$scope.mensagem = erro.mensagem;
+				});
+
+				/*if (! $routeParams.id) {
 					recursoFoto.save (
 						$scope.foto,
 						function () {
@@ -55,7 +61,7 @@ angular.module ("alurapic").controller ("FotoController",
 						$scope.foto,
 						function () {
 							console.log("foto alterada: " + JSON.stringify($scope.foto));
-							alert("foto " + $scope.foto.titulo + " alterada com sucesso");
+							alert("foto " + $scope.foto.titulo + " alterada com sucesso via servico");
 							$location.path("/");
 							//$scope.mensagem = "foto " + $scope.foto.titulo + " alterada com sucesso";
 						},
@@ -64,7 +70,7 @@ angular.module ("alurapic").controller ("FotoController",
 							$scope.mensagem = "nao foi possivel alterar a foto " + $scope.foto.titulo;
 						}
 					)
-				}
+				}*/
 
 				/*
 					$http.post("/v1/fotos", $scope.foto)
